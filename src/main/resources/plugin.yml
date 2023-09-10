@@ -1,0 +1,4 @@
+name: CloudHolder
+version: '${version}'
+main: me.milka.gilles.cloudholder.cloudholder.CloudHolder
+api-version: '1.19'
