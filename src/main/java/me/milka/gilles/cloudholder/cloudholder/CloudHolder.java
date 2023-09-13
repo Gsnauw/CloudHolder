@@ -1,13 +1,9 @@
 package me.milka.gilles.cloudholder.cloudholder;
 
-import me.clip.placeholderapi.PlaceholderAPI;
-import me.clip.placeholderapi.PlaceholderHook;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -28,7 +24,7 @@ public final class CloudHolder extends JavaPlugin {
     @Override
     public void onEnable() {
 
-        this.getCommand("cloudholder").setExecutor(new CreateCommand(this));
+        this.getCommand("cloudholder").setExecutor(new CloudCommand(this));
 
         Bukkit.getServer().getLogger().info("[CloudHolder] Plugin enabled, Hello World");
         ConfigMaken();
