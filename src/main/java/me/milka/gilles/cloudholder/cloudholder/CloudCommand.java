@@ -17,11 +17,12 @@ public class CloudCommand implements CommandExecutor {
     }
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+            String naam = args[1];
+            String value = args[2];
+
             if (args.length >= 1) {
                 switch (args[0]) {
                     case "create":
-                        String naam = args[1];
-                        String value = args[2];
                         String DataOpslaan = naam + ":" + value;
 
                         if (CloudCheck.CheckHolder(naam, value)) {
@@ -40,28 +41,26 @@ public class CloudCommand implements CommandExecutor {
                             sender.sendMessage(ChatColor.RED + "false");
                             break;
                         }
-                case "rename":
-                    String naam = args[1];
-                    String value = args[2];
-                    String DataOpslaan = naam + ":" + value;
-
-                    if (CloudCheck.CheckHolder(naam, value)) {
-                        sender.sendMessage(naam + ":" + value);
-                        me.milka.gilles.cloudholder.cloudholder.CloudHolder.holderdata.add(DataOpslaan);
-                        CloudHolder.getCustomConfigDataFile().set("PlaceholdersData", me.milka.gilles.cloudholder.cloudholder.CloudHolder.holderdata);
-                        try {
-                            CloudHolder.getCustomConfigDataFile().save(CloudHolder.customConfigDataFile);
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                    case "rename":
+                        String DataVeranderen = naam + ":" + value;
+// data halen uit cloud check en dan eerst verwijderen en daarna 'replacen' met nieuwe data
+                        if (CloudCheck.CheckHolder(naam, value)) {
+                            sender.sendMessage(naam + ":" + value);
+                            me.milka.gilles.cloudholder.cloudholder.CloudHolder.holderdata.remove();
+                            CloudHolder.getCustomConfigDataFile().set("PlaceholdersData", me.milka.gilles.cloudholder.cloudholder.CloudHolder.holderdata);
+                            try {
+                                CloudHolder.getCustomConfigDataFile().save(CloudHolder.customConfigDataFile);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            me.milka.gilles.cloudholder.cloudholder.CloudHolder.holderdata = CloudHolder.getCustomConfigDataFile().getStringList("PlaceholdersData");
+                            break;
                         }
-                        me.milka.gilles.cloudholder.cloudholder.CloudHolder.holderdata = CloudHolder.getCustomConfigDataFile().getStringList("PlaceholdersData");
-                        break;
-                    }
-                    if (!CloudCheck.CheckHolder(naam, value)) {
-                        sender.sendMessage(ChatColor.RED + "false");
-                        break;
-                    }
-            }
+                        if (!CloudCheck.CheckHolder(naam, value)) {
+                            sender.sendMessage(ChatColor.RED + "false");
+                            break;
+                        }
+                }
             }
         return false;
     }
