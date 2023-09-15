@@ -39,11 +39,87 @@ public class CloudCommand implements CommandExecutor, TabCompleter {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        if (args.length <= 1) {
+        if (args.length == 0) {
             sender.sendMessage(ConvertedPrefix + ChatColor.RED + "Ongeldig command, gebruik: '/cloudholder <create, delete, rename>'.");
         }
 
+        if (args.length == 1) {
+                if (args[0].equals("delete")) {
+                    if (sender.hasPermission("cloudholder.delete")) {
+                    sender.sendMessage(ConvertedPrefix + ChatColor.RED + "Vul een naam in! (/cloudholder delete <naam>)");
+                    return false;
+                }
+                sender.sendMessage(ConvertedPrefix + ConvertedPermissie);
+                return false;
+            }
+                if (args[0].equals("create")) {
+                    if (sender.hasPermission("cloudholder.create")) {
+                    sender.sendMessage(ConvertedPrefix + ChatColor.RED + "Vul een naam in! (/cloudholder create <naam> <waarde>)");
+                    return false;
+                }
+                sender.sendMessage(ConvertedPrefix + ConvertedPermissie);
+                return false;
+            }
+                if (args[0].equals("rename")) {
+                    if (sender.hasPermission("cloudholder.rename")) {
+                    sender.sendMessage(ConvertedPrefix + ChatColor.RED + "Vul een naam in! (/cloudholder rename <naam> <nieuwe waarde>)");
+                    return false;
+                }
+                sender.sendMessage(ConvertedPrefix + ConvertedPermissie);
+                return false;
+            }
+        }
+
+        if (args.length == 2) {
+                if (args[0].equals("create")) {
+                    if (sender.hasPermission("cloudholder.create")) {
+                    sender.sendMessage(ConvertedPrefix + ChatColor.RED + "Vul een waarde in! (/cloudholder create <naam> <waarde>)");
+                    return false;
+                }
+                sender.sendMessage(ConvertedPrefix + ConvertedPermissie);
+                return false;
+            }
+                if (args[0].equals("rename")) {
+                    if (sender.hasPermission("cloudholder.rename")) {
+                    sender.sendMessage(ConvertedPrefix + ChatColor.RED + "Vul een waarde in! (/cloudholder rename <naam> <nieuwe waarde>)");
+                    return false;
+                }
+                sender.sendMessage(ConvertedPrefix + ConvertedPermissie);
+                return false;
+            }
+        }
+
+        if (args.length > 3) {
+            if (args[0].equals("create")) {
+                if (sender.hasPermission("cloudholder.create")) {
+                    sender.sendMessage(ConvertedPrefix + ChatColor.RED + "Teveel argumenten!");
+                    return false;
+                }
+                sender.sendMessage(ConvertedPrefix + ConvertedPermissie);
+                return false;
+            }
+            if (args[0].equals("rename")) {
+                if (sender.hasPermission("cloudholder.rename")) {
+                    sender.sendMessage(ConvertedPrefix + ChatColor.RED + "Teveel argumenten!");
+                    return false;
+                }
+                sender.sendMessage(ConvertedPrefix + ConvertedPermissie);
+                return false;
+            }
+        }
+
         if (args.length > 2) {
+            if (args[0].equals("delete")) {
+                if (sender.hasPermission("cloudholder.delete")) {
+                    sender.sendMessage(ConvertedPrefix + ChatColor.RED + "Teveel argumenten!");
+                    return false;
+                }
+                sender.sendMessage(ConvertedPrefix + ConvertedPermissie);
+                return false;
+            }
+        }
+
+        if (args.length == 3) {
             CloudCheck.CheckResult result = CloudCheck.CheckHolder(args[1], args[2]);
             boolean check = result.getResult();
             // String naamResult = result.getNaamResult();
@@ -55,11 +131,6 @@ public class CloudCommand implements CommandExecutor, TabCompleter {
             switch (args[0]) {
                 case "create":
                     if (sender.hasPermission("cloudholder.create")) {
-
-                        if (args[2].isEmpty()) {
-                            sender.sendMessage(ConvertedPrefix + ChatColor.RED + "Vul een waarde in!");
-                            break;
-                        }
                         if (!check) {
                             String DataOpslaan = args[1] + ":" + args[2];
                             ConvertedCreated = ConvertedCreated.replace("%naam%", args[1]);
@@ -85,10 +156,6 @@ public class CloudCommand implements CommandExecutor, TabCompleter {
 
                 case "rename":
                     if (sender.hasPermission("cloudholder.rename")) {
-                        if (args[2].isEmpty()) {
-                            sender.sendMessage(ConvertedPrefix + ChatColor.RED + "Vul een waarde in!");
-                            break;
-                        }
                         if (check) {
                             String DataVerwijder = args[1] + ":" + valueResult;
                             me.milka.gilles.cloudholder.cloudholder.CloudHolder.holderdata.remove(DataVerwijder);
@@ -117,7 +184,8 @@ public class CloudCommand implements CommandExecutor, TabCompleter {
                     break;
             }
         }
-        if (args.length >= 1) {
+
+        if (args.length == 2) {
             switch (args[0]) {
                 case "delete":
                     if (sender.hasPermission("cloudholder.delete")) {
