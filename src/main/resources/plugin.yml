@@ -2,9 +2,18 @@ name: CloudHolder
 version: '${version}'
 main: me.milka.gilles.cloudholder.cloudholder.CloudHolder
 api-version: '1.19'
+prefix: CloudHolder
+authors: [Gilles]
 depend:
   - PlaceholderAPI
-
 commands:
   cloudholder:
-    description: Hoi
+    description: Het CloudHolder command.
+    permissions:
+      janitor.*:
+        description: Geeft alle permissies in één keer.
+        default: op
+        children:
+          cloudholder.create: true
+          cloudholder.delete: true
+          cloudholder.rename: true
