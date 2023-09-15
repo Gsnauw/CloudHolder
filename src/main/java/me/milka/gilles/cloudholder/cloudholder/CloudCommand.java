@@ -44,24 +44,24 @@ public class CloudCommand implements CommandExecutor, TabCompleter {
         }
 
         if (args.length == 1) {
-                if (args[0].equals("delete")) {
-                    if (sender.hasPermission("cloudholder.delete")) {
+            if (args[0].equals("delete")) {
+                if (sender.hasPermission("cloudholder.delete")) {
                     sender.sendMessage(ConvertedPrefix + ChatColor.RED + "Vul een naam in! (/cloudholder delete <naam>)");
                     return false;
                 }
                 sender.sendMessage(ConvertedPrefix + ConvertedPermissie);
                 return false;
             }
-                if (args[0].equals("create")) {
-                    if (sender.hasPermission("cloudholder.create")) {
+            if (args[0].equals("create")) {
+                if (sender.hasPermission("cloudholder.create")) {
                     sender.sendMessage(ConvertedPrefix + ChatColor.RED + "Vul een naam in! (/cloudholder create <naam> <waarde>)");
                     return false;
                 }
                 sender.sendMessage(ConvertedPrefix + ConvertedPermissie);
                 return false;
             }
-                if (args[0].equals("rename")) {
-                    if (sender.hasPermission("cloudholder.rename")) {
+            if (args[0].equals("rename")) {
+                if (sender.hasPermission("cloudholder.rename")) {
                     sender.sendMessage(ConvertedPrefix + ChatColor.RED + "Vul een naam in! (/cloudholder rename <naam> <nieuwe waarde>)");
                     return false;
                 }
@@ -71,16 +71,16 @@ public class CloudCommand implements CommandExecutor, TabCompleter {
         }
 
         if (args.length == 2) {
-                if (args[0].equals("create")) {
-                    if (sender.hasPermission("cloudholder.create")) {
+            if (args[0].equals("create")) {
+                if (sender.hasPermission("cloudholder.create")) {
                     sender.sendMessage(ConvertedPrefix + ChatColor.RED + "Vul een waarde in! (/cloudholder create <naam> <waarde>)");
                     return false;
                 }
                 sender.sendMessage(ConvertedPrefix + ConvertedPermissie);
                 return false;
             }
-                if (args[0].equals("rename")) {
-                    if (sender.hasPermission("cloudholder.rename")) {
+            if (args[0].equals("rename")) {
+                if (sender.hasPermission("cloudholder.rename")) {
                     sender.sendMessage(ConvertedPrefix + ChatColor.RED + "Vul een waarde in! (/cloudholder rename <naam> <nieuwe waarde>)");
                     return false;
                 }
@@ -218,6 +218,42 @@ public class CloudCommand implements CommandExecutor, TabCompleter {
                     break;
             }
         }
+
+        if (args.length == 1) {
+            switch (args[0]) {
+                case "list":
+                    if (sender.hasPermission("cloudholder.list")) {
+                        List<String> dataList = new ArrayList<>();
+
+                        for (String blk : me.milka.gilles.cloudholder.cloudholder.CloudHolder.holderdata) {
+                            dataList.add(blk);
+                        }
+
+                        String dataString = String.join(ChatColor.GREEN + ", " + ChatColor.WHITE, dataList);
+
+                        sender.sendMessage(ConvertedPrefix + ChatColor.WHITE + "Lijst met cloudholders" + ChatColor.GREEN + ":");
+                        sender.sendMessage(dataString + ChatColor.GREEN + ".");
+                        break;
+                    }
+                    sender.sendMessage(ConvertedPrefix + ConvertedPermissie);
+                    break;
+                case "help":
+                    if (sender.hasPermission("cloudholder.help")) {
+                        String HelpBericht = "&f<------------<&b&lJan&9&litor &6&lhelp &a&lmenu&f>------------>";
+                        String ConvertedHelpBericht = ChatColor.translateAlternateColorCodes('&', HelpBericht);
+                        sender.sendMessage(ConvertedHelpBericht);
+                        sender.sendMessage(ChatColor.BLUE + "/janitor create <naam> <waarde>" + ChatColor.WHITE + ": " + ChatColor.GREEN + "Maak een CloudHolder aan.");
+                        sender.sendMessage(ChatColor.BLUE + "/janitor delete <naam>" + ChatColor.WHITE + ": " + ChatColor.GREEN + "Verwijder een CloudHolder.");
+                        sender.sendMessage(ChatColor.BLUE + "/janitor help" + ChatColor.WHITE + ": " + ChatColor.GREEN + "Krijg dit help menu.");
+                        sender.sendMessage(ChatColor.BLUE + "/janitor rename <naam> <nieuwe waarde>" + ChatColor.WHITE + ": " + ChatColor.GREEN + "Verander de waarde van een CloudHoldeR.");
+                        sender.sendMessage(ChatColor.BLUE + "/janitor list" + ChatColor.WHITE + ": " + ChatColor.GREEN + "Krijg de lijst van CloudHolders.");
+                        sender.sendMessage(ConvertedHelpBericht);
+                        break;
+                    }
+                    sender.sendMessage(ConvertedPrefix + ConvertedPermissie);
+                    break;
+            }
+        }
         return false;
     }
 
@@ -226,7 +262,7 @@ public class CloudCommand implements CommandExecutor, TabCompleter {
             command, @NotNull String s, @NotNull String[]args){
         List<String> suggestions = new ArrayList<>();
         if (args.length == 1) {
-            return Arrays.asList("create", "delete", "rename").stream().filter(p -> p.regionMatches(true, 0, args[0], 0, args[0].length())).collect(Collectors.toList());
+            return Arrays.asList("create", "delete", "rename", "list", "help").stream().filter(p -> p.regionMatches(true, 0, args[0], 0, args[0].length())).collect(Collectors.toList());
         }
         if (args.length == 2) {
             String subcommand = args[0].toLowerCase();
