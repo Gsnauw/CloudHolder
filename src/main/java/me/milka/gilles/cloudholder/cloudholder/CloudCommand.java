@@ -239,14 +239,14 @@ public class CloudCommand implements CommandExecutor, TabCompleter {
                     break;
                 case "help":
                     if (sender.hasPermission("cloudholder.help")) {
-                        String HelpBericht = "&f<------------<&b&lJan&9&litor &6&lhelp &a&lmenu&f>------------>";
+                        String HelpBericht = "&f<------------<&c&lCloud&f&lHolder &6&lhelp &a&lmenu&f>------------>";
                         String ConvertedHelpBericht = ChatColor.translateAlternateColorCodes('&', HelpBericht);
                         sender.sendMessage(ConvertedHelpBericht);
-                        sender.sendMessage(ChatColor.BLUE + "/janitor create <naam> <waarde>" + ChatColor.WHITE + ": " + ChatColor.GREEN + "Maak een CloudHolder aan.");
-                        sender.sendMessage(ChatColor.BLUE + "/janitor delete <naam>" + ChatColor.WHITE + ": " + ChatColor.GREEN + "Verwijder een CloudHolder.");
-                        sender.sendMessage(ChatColor.BLUE + "/janitor help" + ChatColor.WHITE + ": " + ChatColor.GREEN + "Krijg dit help menu.");
-                        sender.sendMessage(ChatColor.BLUE + "/janitor rename <naam> <nieuwe waarde>" + ChatColor.WHITE + ": " + ChatColor.GREEN + "Verander de waarde van een CloudHoldeR.");
-                        sender.sendMessage(ChatColor.BLUE + "/janitor list" + ChatColor.WHITE + ": " + ChatColor.GREEN + "Krijg de lijst van CloudHolders.");
+                        sender.sendMessage(ChatColor.BLUE + "/cloudholder create <naam> <waarde>" + ChatColor.WHITE + ": " + ChatColor.GREEN + "Maak een CloudHolder aan.");
+                        sender.sendMessage(ChatColor.BLUE + "/cloudholder delete <naam>" + ChatColor.WHITE + ": " + ChatColor.GREEN + "Verwijder een CloudHolder.");
+                        sender.sendMessage(ChatColor.BLUE + "/cloudholder help" + ChatColor.WHITE + ": " + ChatColor.GREEN + "Krijg dit help menu.");
+                        sender.sendMessage(ChatColor.BLUE + "/cloudholder rename <naam> <nieuwe waarde>" + ChatColor.WHITE + ": " + ChatColor.GREEN + "Verander de waarde van een CloudHolder.");
+                        sender.sendMessage(ChatColor.BLUE + "/cloudholder list" + ChatColor.WHITE + ": " + ChatColor.GREEN + "Krijg de lijst van CloudHolders.");
                         sender.sendMessage(ConvertedHelpBericht);
                         break;
                     }
