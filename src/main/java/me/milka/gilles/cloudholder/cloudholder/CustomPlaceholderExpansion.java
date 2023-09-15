@@ -26,9 +26,8 @@ public class CustomPlaceholderExpansion extends PlaceholderExpansion {
 
     @Override
     public String getIdentifier() {
-        return "cloudholder"; // Replace with your plugin's identifier
+        return "cloudholder";
     }
-
     @Override
     public String getVersion() {
         return plugin.getDescription().getVersion();
